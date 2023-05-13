@@ -1,11 +1,13 @@
 #include "main.h"
 
 /**
- * main-function building a simple shell
- * Return :0(sucess) or error msg(error)
+ * main - the main function for our simple shell
+ *
+ * Return: 0(sucess) or error msg(error)
  * @ac:arguments count
  * @argv:arguments variables
  */
+
 int main(int ac, char **argv)
 {
 	char *shell_prompt = "our_shell$";
@@ -13,7 +15,8 @@ int main(int ac, char **argv)
 	size_t n = 0;
 	ssize_t char_num;
 
-	(void) ac ; (void)argv;
+	(void) ac;
+	(void)argv;
 	while (5)
 	{
 		printf("%s", shell_prompt);
@@ -26,5 +29,5 @@ int main(int ac, char **argv)
 		printf("%s\n", lineptr);
 		free(lineptr);
 	}
-	return(0);
+	return (0);
 }
