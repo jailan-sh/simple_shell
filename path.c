@@ -18,7 +18,7 @@ char *which_like(char *command)
 	{
 		path_cp = _strdup(path);
 		command_len = _strlen(command);
-		path_token = _strtok(path_cp, ":");
+		path_token = strtok(path_cp, ":");
 		while (path_token != NULL)
 		{
 			directory_len = _strlen(path_token);
@@ -54,21 +54,37 @@ char *which_like(char *command)
 }
 
 /**
- * _getenv - function to get to environment variables
- * @var : path
+ * _getenv - Get an environment variable.
+ * @name: Variable to look for
  *
- * Return: environ if exist, null if not
+ * Return: The environnment variable, if not found NULL
  */
 
-char *_getenv(const char *var)
+char *_getenv(const char *name)
 {
-	int index, len;
+	int i = 0, y, count = 0, length;
+	char *copy = (char *)name;
 
-	len = _strlen(var);
-	for (index = 0; environ[index]; index++)
+	if (name == NULL || !name[i])
+		return (NULL);
+
+	length = _strlen(copy);
+	while (*(environ + i))
 	{
-		if (_strncmp(var, environ[index], len) == 0)
-			return (environ[index]);
+		y = 0;
+		while (*(*(environ + i) + y) != '=')
+		{
+			if (*(*(environ + i) + y) == name[y])
+				count++;
+			y++;
+		}
+		if (count == length)
+		{
+			y++;
+			return (*(environ + i) + y);
+		}
+		i++;
+		count = 0;
 	}
 	return (NULL);
 }

@@ -10,7 +10,7 @@
 
 void start_shell(char **av, char **env)
 {
-	char *lineptr = NULL, *delim = " \t\n\r", *end = "exit";
+	char *lineptr = NULL, *delim = " \t\n\r";
 	size_t n = 0;
 	int i = 0;
 	ssize_t nread;
@@ -31,7 +31,7 @@ void start_shell(char **av, char **env)
 		{
 			i = 0;
 			argument[i] = _strtok(lineptr, delim);
-			if (_strcmp(end, argument[0]) == 0)
+			if (_strcmp("exit", argument[0]) == 0)
 				break;
 			while (argument[i])
 				argument[++i] = _strtok(NULL, delim);
@@ -45,4 +45,5 @@ void start_shell(char **av, char **env)
 			}
 		}
 	}
+	free(lineptr);
 }
