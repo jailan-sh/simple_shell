@@ -11,6 +11,7 @@ char *which_like(char *command)
 	char *path, *path_cp, *path_token, *file_path;
 	int command_len, directory_len;
 	struct stat buff;
+	char *error_msg;
 
 	path = _getenv("PATH");
 	if (path)
@@ -41,6 +42,11 @@ char *which_like(char *command)
 	if (stat(command, &buff) == 0)
 	{
 		return (command);
+	}
+	else
+	{
+		error_msg = "command not found\n";
+		write(STDERR_FILENO, error_msg, _strlen(error_msg));
 	}
 	return (NULL);
 	}
