@@ -29,6 +29,6 @@ void execute_command(char **argument, char **env, char *av[])
 	}
 	else
 	{
-		wait(&status);
+		waitpid(child, &status, WUNTRACED);
 	}
 }
