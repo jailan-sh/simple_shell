@@ -13,7 +13,7 @@ void execute_command(char **argument, char **env, char *av[])
 	pid_t child;
 	int status;
 
-	if (strcmp("env", argument[0]) == 0)
+	if (_strcmp("env", argument[0]) == 0)
 	{
 		print_env();
 	}

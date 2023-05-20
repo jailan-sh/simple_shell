@@ -30,11 +30,11 @@ void start_shell(char **av, char **env)
 		if (*lineptr != '\n')
 		{
 			i = 0;
-			argument[i] = strtok(lineptr, delim);
-			if (strcmp(end, argument[0]) == 0)
+			argument[i] = _strtok(lineptr, delim);
+			if (_strcmp(end, argument[0]) == 0)
 				break;
 			while (argument[i])
-				argument[++i] = strtok(NULL, delim);
+				argument[++i] = _strtok(NULL, delim);
 			if (which_like(argument[0]) != NULL)
 			{
 				execute(argument);
