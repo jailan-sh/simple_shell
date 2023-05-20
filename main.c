@@ -1,33 +1,17 @@
 #include "main.h"
 
 /**
- * main - the main function for our simple shell
+ * main - main function to run shell
+ * @ac : number count of arguments
+ * @av : string of arguments
+ * @env : environment varuables
  *
- * Return: 0(sucess) or error msg(error)
- * @ac:arguments count
- * @argv:arguments variables
+ * Return: 0 always success
  */
 
-int main(int ac, char **argv)
+int main(int ac, char **av, char **env)
 {
-	char *shell_prompt = "our_shell$";
-	char *lineptr;
-	size_t n = 0;
-	ssize_t char_num;
-
-	(void) ac;
-	(void)argv;
-	while (5)
-	{
-		printf("%s", shell_prompt);
-		char_num = getline(&lineptr, &n, stdin);
-		if (char_num == -1)
-		{
-			printf("Exit\n");
-			return (-1);
-		}
-		printf("%s\n", lineptr);
-		free(lineptr);
-	}
+	if (ac == 1)
+		start_shell(av, env);
 	return (0);
 }
