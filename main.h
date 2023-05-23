@@ -17,13 +17,13 @@
 
 extern char **environ;
 
-void execute_command(char** argument, char** env, char* av[]);
+/** prompt*/
+void non_interactive(char **av, char **env);
 void start_shell(char **av, char **env);
 char *which_like(char *command);
-void execute(char**argv);
-char *_getenv(const char *name);
-void print_env(void);
-void _puts(char *s);
+void execute_builtin_command(char **argument, char **env, char *av[]);
+void execute_external_command(char **argument, char **env, char *av[]);
+
 
 /**string functions */
 
@@ -36,7 +36,19 @@ char *_strdup(char *str);
 void _puts(char *s);
 char *_strcat(char *dest, char *src);
 
+/**implement functions*/
+
 char *_strtok(char *line, char *delim);
+char *_getline(void);
+char *_getenv(const char *name);
+void _puts(char *s);
+
+/**builtin commands*/
+
+void print_env(void);
+void _echo(void);
+int my_cd(char **argument);
+void handler(int sig __attribute__((unused)));
 
 
 #endif
