@@ -25,8 +25,9 @@ void execute_external_command(char **argument, char **env, char *av[])
 		{
 			perror(av[0]);
 		}
-		return;
 	}
+	else
+	{
 
 	child_pid = fork();
 	if (child_pid == -1)
@@ -45,6 +46,7 @@ void execute_external_command(char **argument, char **env, char *av[])
 	else
 	{
 		waitpid(child_pid, &child_status, WUNTRACED);
+	}
 	}
 }
 
