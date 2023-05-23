@@ -22,7 +22,6 @@ void start_shell(char **av, char **env)
 		lineptr  = _getline();
 		if (lineptr == NULL)
 		{
-			write(1, "exit\n", 6);
 			free(lineptr), exit(EXIT_FAILURE);
 		}
 		if (*lineptr != '\n')
