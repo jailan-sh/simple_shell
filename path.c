@@ -43,6 +43,7 @@ char *which_like(char *command)
 			free(file_path), path_token = _strtok(NULL, ":");
 	}
 	free(path_cp);
+	file_path = "";
 	if (stat(command, &buff) == 0 && (buff.st_mode & S_IXUSR))
 	{
 		return (command);
