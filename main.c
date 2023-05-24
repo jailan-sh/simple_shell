@@ -11,16 +11,16 @@
  */
 
 int main(int ac, char **av, char **env)
-{
+{	
 	(void)ac;
 
 	if (isatty(STDIN_FILENO))
 	{
-		start_shell(av, env);
+		start_shell(av, env);	
 	}
 	else
 	{
 		non_interactive(av, env);
-	}
+	}	
 	return (0);
 }

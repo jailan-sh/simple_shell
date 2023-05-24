@@ -33,7 +33,7 @@ void execute_external_command(char **argument, char **env, char *av[])
 	if (child_pid == -1)
 	{
 		perror("fork");
-		free(argument), exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	if (child_pid == 0)
 	{
@@ -42,10 +42,12 @@ void execute_external_command(char **argument, char **env, char *av[])
 			perror(av[0]);
 			exit(errno);
 		}
+		free(command_path);
 	}
 	else
 	{
 		waitpid(child_pid, &child_status, WUNTRACED);
+		free(command_path);
 	}
 	}
 }
