@@ -30,8 +30,8 @@ char *which_like(char *command)
 			return (NULL);
 		}
 		_strcpy(file_path, path_token);
-		_strcat(file_path, "/");
-		_strcat(file_path, command);
+		strcat(file_path, "/");
+		strcat(file_path, command);
 		file_path[command_len + directory_len + 1] = '\0';
 		if (stat(file_path, &buff) == 0)
 		{
