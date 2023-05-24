@@ -9,7 +9,7 @@
 char *which_like(char *command)
 {
 	char *path, *path_cp, *path_token, *file_path;
-	int command_len, directory_len; 
+	int command_len, directory_len;
 	struct stat buff;
 
 	path = _getenv("PATH");
@@ -23,16 +23,15 @@ char *which_like(char *command)
 	while (path_token != NULL)
 	{
 		directory_len = _strlen(path_token);
-		file_path = malloc(sizeof(char) * (command_len + directory_len + 2));
+		file_path = malloc(command_len + directory_len + 2);
 		if (!file_path)
 		{
 			free(path_cp);
-			free(file_path);
 			return (NULL);
 		}
 		_strcpy(file_path, path_token);
-		strcat(file_path, "/");
-		strcat(file_path, command);
+		_strcat(file_path, "/");
+		_strcat(file_path, command);
 		file_path[command_len + directory_len + 1] = '\0';
 		if (stat(file_path, &buff) == 0)
 		{
@@ -41,13 +40,9 @@ char *which_like(char *command)
 		}
 		else
 			free(file_path), path_token = _strtok(NULL, ":");
-	}
-	free(path_cp);
-	file_path = "";
+	} free(path_cp);
 	if (stat(command, &buff) == 0 && (buff.st_mode & S_IXUSR))
-	{
 		return (command);
-	}
 	else
 		return (NULL);
 }

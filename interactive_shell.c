@@ -28,7 +28,6 @@ void start_shell(char **av, char **env)
 		{
 			i = 0;
 			argument[i] = _strtok(lineptr, delim);
-
 			while (argument[i])
 			{
 				if (i > 0 && argument[i] != NULL && _strcmp(argument[i], "#") == 0)
