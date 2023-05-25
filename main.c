@@ -1,5 +1,4 @@
 #include "main.h"
-#include <signal.h>
 
 /**
  * main - main function to run shell
@@ -14,13 +13,13 @@ int main(int ac, char **av, char **env)
 {
 	(void)ac;
 
-	if (isatty(STDIN_FILENO))
+	if (isatty(STDIN_FILENO) != 0 && ac > 1)
 	{
-		start_shell(av, env);
+		non_interactive(av, env);
 	}
 	else
 	{
-		non_interactive(av, env);
+		start_shell(av, env);
 	}
 	return (0);
 }
