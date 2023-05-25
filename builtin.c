@@ -19,20 +19,20 @@ void execute_external_command(char **argument, char **env, char *av[])
 	{
 		if (errno == ENOENT)
 		{
-			fprintf(stderr, "%s: %s: command not found\n", av[0], argument[0]);
+			write(STDERR_FILENO, "./hsh: No such file or directory\n", 34);
 		}
 		else
 		{
 			perror(av[0]);
 		}
+		return;
 	}
-	else
-	{
 
 	child_pid = fork();
 	if (child_pid == -1)
 	{
 		perror("fork");
+		free(command_path);
 		exit(EXIT_FAILURE);
 	}
 	if (child_pid == 0)
@@ -40,18 +40,15 @@ void execute_external_command(char **argument, char **env, char *av[])
 		if (execve(command_path, argument, env) == -1)
 		{
 			perror(av[0]);
+			free(command_path);
 			exit(errno);
 		}
-		free(command_path);
 	}
 	else
 	{
 		waitpid(child_pid, &child_status, WUNTRACED);
-		free(command_path);
-	}
 	}
 }
-
 /**
  * execute_builtin_command - executes builtin commands
  * @argument: command arguments
@@ -66,8 +63,7 @@ void execute_builtin_command(char **argument, char **env, char *av[])
 	{
 		return;
 	}
-	else if (argument[1] != NULL &&
-			_strcmp("echo", argument[0]) == 0 && _strcmp("$$", argument[1]) == 0)
+	else if (_strcmp("echo", argument[0]) == 0 && _strcmp("$$", argument[1]) == 0)
 	{
 		_echo();
 		return;
