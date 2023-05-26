@@ -18,11 +18,11 @@ int my_cd(char **argument)
 	}
 	if (argument[1] == NULL || strcmp(argument[1], "~") == 0)
 	{
-		chdir(_getenv("HOME"));
+		chdir(getenv("HOME"));
 	}
 	else if (strcmp(argument[1], "-") == 0)
 	{
-		if (_getenv("OLDPWD") != NULL)
+		if (getenv("OLDPWD") != NULL)
 		{
 			chdir(_getenv("OLDPWD"));
 		}
