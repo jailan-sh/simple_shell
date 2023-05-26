@@ -1,30 +1,24 @@
 #include "main.h"
 
 /**
- * _getline - function like getline
- *
- * Return: string success otherwise NULL
+ * _getline - puts input from user into buffer line
+ * @fp: buffer for user input
+ * Return: buffer with user input
  */
-char *_getline(void)
+char *_getline(FILE *fp)
 {
-	static char buffer[1024];
-	static int pos;
-	int c;
+	char *line;
+	ssize_t read;
+	size_t len;
 
-	while ((c = getchar()) != EOF && c != '\n')
+	line = NULL;
+	len = 0;
+	read = getline(&line, &len, fp);
+	if (read == -1)
 	{
-		buffer[pos++] = c;
-		if (pos >= 1024)
-		{
-			write(1, "Error: input too long\n", 23);
-			return (NULL);
-		}
+		free(line);
+		exit(EXIT_SUCCESS);
 	}
-	if (pos == 0 && c == EOF)
-	{
-		return (NULL);
-	}
-	buffer[pos] = '\0';
-	pos = 0;
-	return (buffer);
+
+	return (line);
 }

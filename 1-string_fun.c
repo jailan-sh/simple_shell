@@ -41,58 +41,49 @@ int _strlen(char *s)
 }
 
 /**
- * *_strncat - concatenates @src to @dest
- * @src: the source string to append to @dest
- * @dest: the destiation string to be concatenated upon
- * @n: number of source to be taken
- * Return:pointer to the resulting string
+ * _strcmp - compares two strings to find out if they are exactly the same
+ * @name: name supplied by user to search for
+ * @variable: variable to compare against
+ * @length: length of name
+ * Return: 1 if strings are equal, -1 if they are not
  */
-
-char *_strncat(char *dest, char *src, int n)
+int _strcmp(char *name, char *variable, unsigned int length)
 {
-	int i = 0;
-	int j;
+	unsigned int var_length;
+	unsigned int i;
 
-	while (dest[i] != '\0')
+	var_length = _strlen(variable);
+	if (var_length != length)
+		return (-1);
+
+	i = 0;
+	while (name[i] != '\0' && variable[i] != '\0')
 	{
+		if (name[i] != variable[i])
+			return (1);
 		i++;
 	}
-	j = 0;
-	while (j < n && src[j] != '\0')
-	{
-		dest[i] = src[j];
-		i++;
-	j++;
-	}
-	if  (i < n)
-	{
-	dest[i] = '\0';
-	}
-
-	return (dest);
+	return (0);
 }
 
 /**
- * _strcmp - a function that compares two strings
- * @s1 : first string
- * @s2 : second string
- * * Return: If str1 < str2, the negative difference of
- * the first unmatched characters.
- * If s1 == s2, 0.
- * If s1 > s2, the positive difference of
- * the first unmatched characters.
+ * _strncmp - compares two strings
+ * up to given length are the same
+ * @name: name supplied by user to search for
+ * @variable: variable to compare against
+ * @length: length to compare up to
+ * Return: 1 if strings are equal, -1 if they are not
  */
-
-int _strcmp(char *s1, char *s2)
+int _strncmp(char *name, char *variable, unsigned int length)
 {
-	int i = 0;
+	unsigned int i;
 
-	for (i = 0; s1[i] != '\0' && s2[i] != '\0'; i++)
+	i = 0;
+	while (i < length)
 	{
-	if (s1[i] != s2[i])
-	{
-		return (s1[i] - s2[i]);
+		if (name[i] != variable[i])
+			return (-1);
+		i++;
 	}
-	}
-		return (0);
+	return (1);
 }
