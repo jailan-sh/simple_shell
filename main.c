@@ -1,8 +1,7 @@
 #include "main.h"
 
 /**
- * main - the main function of the shell
- *
+ * main - main function of the shell
  * Return: 0 always success
  */
 
