@@ -24,7 +24,7 @@ int my_cd(char **argument)
 	{
 		if (getenv("OLDPWD") != NULL)
 		{
-			chdir(_getenv("OLDPWD"));
+			chdir(getenv("OLDPWD"));
 		}
 		else
 		{
@@ -45,7 +45,7 @@ int my_cd(char **argument)
 	{
 		return (-1);
 	}
-	setenv("OLDPWD", _getenv("PWD"), 1);
+	setenv("OLDPWD", getenv("PWD"), 1);
 	setenv("PWD", cwd, 1);
 	return (0);
 }
