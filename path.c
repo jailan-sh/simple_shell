@@ -3,7 +3,7 @@
 /**
  * _which - searches directories in PATH for command
  * @command: to search for
- * @fullpath: full path of command to execute
+ * @full_path: path of command to execute
  * @path: PATH variable
  * Return: pointer to full_path
  */

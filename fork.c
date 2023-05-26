@@ -1,10 +1,9 @@
 #include "main.h"
 
 /**
- * fork - function in child process
+ * child - function in child process
  * @full_path: path of executable command
  * @tokens: tokenized user input
- *
  * Return: 0 is always success
  */
 
