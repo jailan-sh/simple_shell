@@ -2,9 +2,11 @@
 
 /**
  * _getenv - gets an environment variable
- * @name: environment variable to get
+ * @name : environment variable
+ *
  * Return: pointer to environment variable or NULL if there is no match
  */
+
 char *_getenv(const char *name)
 {
 	char **environ_copy;
@@ -41,7 +43,7 @@ char *_getenv(const char *name)
 				return (NULL);
 			}
 			path = _strcpy(path, value);
-			free_dp(environ_copy, environ_length);
+			free_array(environ_copy, environ_length);
 			return (path);
 		}
 		i++;
@@ -53,7 +55,8 @@ char *_getenv(const char *name)
  * copy_env - copies environment variable
  * @environ_copy: pointer to copy of environment variable
  * @environ_length: length of environment variable
- * Return: double pointer to copy of environment variable
+ *
+ * Return: the copy of environment variables
  */
 char **copy_env(char **environ_copy, unsigned int environ_length)
 {
@@ -85,4 +88,24 @@ char **copy_env(char **environ_copy, unsigned int environ_length)
 	}
 
 	return (environ_copy);
+}
+
+/**
+ * free_array - free array
+ * @array: array pointer to free
+ * @len: length of double pointer
+ *
+ * Return: void
+ */
+void free_array(char **array, unsigned int len)
+{
+	unsigned int i;
+
+	i = 0;
+	while (i < len)
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }

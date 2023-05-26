@@ -17,7 +17,6 @@ int main(void)
 	signal(SIGINT, handler);
 	while (1)
 	{
-		if (isatty(STDIN_FILENO))
 		shell(STDIN_FILENO, buf);
 		line = _getline(stdin);
 		if (_strcmp(line, "\n", 1) == 0)

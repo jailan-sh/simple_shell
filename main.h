@@ -81,7 +81,7 @@ list_s *pathlist(char *variable, list_s *head);
 
 /**free the memory*/
 void free_all(char **tokens, char *path, char *line, char *fullpath, int flag);
-void free_dp(char **array, unsigned int length);
+void free_array(char **array, unsigned int len);
 
 /** builtin functions*/
 int execute_builtin_command(char **argument);

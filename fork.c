@@ -1,11 +1,13 @@
 #include "main.h"
 
 /**
- * child - function in child process
+ * fork - function in child process
  * @full_path: path of executable command
  * @tokens: tokenized user input
- * Return: 0 (success)
+ *
+ * Return: 0 is always success
  */
+
 int child(char *full_path, char **tokens)
 {
 	pid_t child_pid;
