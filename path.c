@@ -1,93 +1,52 @@
 #include "main.h"
 
 /**
- * which_like - get path of the command
- *
- * Return: path if exist or NULL if not
- * @command : command entered by user
+ * _which - searches directories in PATH variable for command
+ * @command: to search for
+ * @fullpath: full path of command to execute
+ * @path: full PATH variable
+ * Return: pointer to full_path
  */
-char *which_like(char *command)
+char *_which(char *command, char *fullpath, char *path)
 {
-	char *path = NULL;
-	char *path_cp = NULL;
-	char *path_token, *file_path;
-	int command_len = 0;
-        int directory_len = 0;
-	struct stat buff;
+	unsigned int command_length, path_length, original_path_length;
+	char *path_copy, *token;
 
-	path = _getenv("PATH");
-	if (!path)
-		return (NULL);
-	path_cp = _strdup(path);
-	if (!path_cp)
-		return (NULL);
-	command_len = _strlen(command);
-	path_token = _strtok(path_cp, ":");
-	while (path_token != NULL)
+	command_length = _strlen(command);
+	original_path_length = _strlen(path);
+	path_copy = malloc(sizeof(char) * original_path_length + 1);
+	if (path_copy == NULL)
 	{
-		directory_len = _strlen(path_token);
-		file_path = malloc(command_len + directory_len + 2);
-		if (!file_path)
+		errors(3);
+		return (NULL);
+	}
+	_strcpy(path_copy, path);
+	/* copy PATH directory + command name and check if it exists */
+	token = strtok(path_copy, ":");
+	if (token == NULL)
+		token = strtok(NULL, ":");
+	while (token != NULL)
+	{
+		path_length = _strlen(token);
+		fullpath = malloc(sizeof(char) * (path_length + command_length) + 2);
+		if (fullpath == NULL)
 		{
-			free(path_cp);
+			errors(3);
 			return (NULL);
 		}
-		_strcpy(file_path, path_token);
-		strcat(file_path, "/");
-		strcat(file_path, command);
-		file_path[command_len + directory_len + 1] = '\0';
-		if (stat(file_path, &buff) == 0)
+		_strcpy(fullpath, token);
+		fullpath[path_length] = '/';
+		_strcpy(fullpath + path_length + 1, command);
+		fullpath[path_length + command_length + 1] = '\0';
+		if (access(fullpath, X_OK) != 0)
 		{
-			free(path_cp);
-			return (file_path);
+			free(fullpath);
+			fullpath = NULL;
+			token = strtok(NULL, ":");
 		}
 		else
-		free(file_path),path_token = _strtok(NULL, ":");
-	} free(path_cp);
-	if (stat(command, &buff) == 0 && (buff.st_mode & S_IXUSR))
-	{
-		return (command);
+			break;
 	}
-	else
-	{
-		free(file_path);
-		return (NULL);
-	}
-	free(path_cp);
-}
-
-/**
- * _getenv - Get an environment variable.
- * @name: Variable to look for
- *
- * Return: The environnment variable, if not found NULL
- */
-
-char *_getenv(const char *name)
-{
-	int i = 0, y, count = 0, length;
-	char *copy = (char *)name;
-
-	if (name == NULL || !name[i])
-		return (NULL);
-
-	length = _strlen(copy);
-	while (*(environ + i))
-	{
-		y = 0;
-		while (*(*(environ + i) + y) != '=')
-		{
-			if (*(*(environ + i) + y) == name[y])
-				count++;
-			y++;
-		}
-		if (count == length)
-		{
-			y++;
-			return (*(environ + i) + y);
-		}
-		i++;
-		count = 0;
-	}
-	return (NULL);
+	free(path_copy);
+	return (fullpath);
 }

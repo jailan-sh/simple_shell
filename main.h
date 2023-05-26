@@ -13,6 +13,7 @@
 #define BUFFER 1024
 #define TRUE 1
 #define PROMPT "$ "
+
 /* error strings */
 #define ERR_MALLOC "Unable to malloc space\n"
 #define ERR_FORK "Unable to fork and create child process\n"
