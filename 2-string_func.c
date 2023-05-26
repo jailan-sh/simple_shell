@@ -67,9 +67,13 @@ char *_strdup(char *str)
  *
  * Return: No Return
  */
-void _puts(char *s)
+void _puts(char *str)
 {
-	write(1, s, _strlen(s));
+	unsigned int length;
+
+	length = _strlen(str);
+
+	write(STDOUT_FILENO, str, length);
 }
 
 /**

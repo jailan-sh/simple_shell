@@ -47,3 +47,17 @@ int main(void)
 		free_all(tokens, path, line, fullpath, flag);
 	}
 	return (0); }
+
+
+/**
+ * prompt - checks mode and prints prompt if interactive
+ * @fd: file stream
+ * @buf: buffer
+**/
+void prompt(int fd, struct stat buf)
+{
+	fstat(fd, &buf);
+
+	if (S_ISCHR(buf.st_mode))
+		_puts(PROMPT);
+}

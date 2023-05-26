@@ -13,15 +13,15 @@ int my_cd(char **argument)
 	char cwd[PATH_MAX];
 
 	if (argument == NULL ||
-			argument[0] == NULL || _strcmp(argument[0], "cd") != 0)
+			argument[0] == NULL || strcmp(argument[0], "cd") != 0)
 	{
 		return (-1);
 	}
-	if (argument[1] == NULL || _strcmp(argument[1], "~") == 0)
+	if (argument[1] == NULL || strcmp(argument[1], "~") == 0)
 	{
 		chdir(_getenv("HOME"));
 	}
-	else if (_strcmp(argument[1], "-") == 0)
+	else if (strcmp(argument[1], "-") == 0)
 	{
 		if (_getenv("OLDPWD") != NULL)
 		{
