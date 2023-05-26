@@ -63,7 +63,7 @@ char *_strdup(char *str)
 
 /**
  * _puts - prints string to std output
- * @s: string (must be NULL terminated)
+ * @str: string (must be NULL terminated)
  *
  * Return: No Return
  */
