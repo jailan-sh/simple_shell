@@ -5,22 +5,22 @@
  * @tokens: pointer to tokens array
  * @path: pointer to path variable
  * @line: pointer to user input buffer
- * @fullpath: pointer to full path
+ * @full_path: pointer to full path
  * @flag: flag marking if full_path was malloc'd
  * Return: void
  */
-void free_all(char **tokens, char *path, char *line, char *fullpath, int flag)
+void free_all(char **tokens, char *path, char *line, char *full_path, int flag)
 {
 	free(path);
 	free(line);
 	free(tokens);
 	if (flag == 1)
-		free(fullpath);
+		free(full_path);
 }
 
 /**
- * free_dp - free double pointer
- * @array: double pointer to free
+ * free_dp - free array 
+ * @array: array pointer to free
  * @length: length of double pointer
  * Return: void
  */

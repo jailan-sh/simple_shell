@@ -4,7 +4,6 @@
 /**
  * my_cd - function to change dir
  * @argument : command
- *
  * Return: 0 success otherwise -1
  */
 

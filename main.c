@@ -8,12 +8,12 @@
 
 int main(void)
 {
-	char *line, *path, *fullpath;
+	char *line, *path, *full_path;
 	char **tokens;
 	int flag, builtin_status, child_status;
 	struct stat buf;
 
-	fullpath = NULL;
+	full_path = NULL;
 	signal(SIGINT, handler);
 	while (1)
 	{
@@ -39,15 +39,15 @@ int main(void)
 			_exit(EXIT_SUCCESS);
 		flag = 0;
 		path = _getenv("PATH");
-		fullpath = _which(tokens[0], fullpath, path);
-		if (fullpath == NULL)
-			fullpath = tokens[0];
+		full_path = _which(tokens[0], full_path, path);
+		if (full_path == NULL)
+			full_path = tokens[0];
 		else
 			flag = 1;
-		child_status = child(fullpath, tokens);
+		child_status = child(full_path, tokens);
 		if (child_status == -1)
 			errors(2);
-		free_all(tokens, path, line, fullpath, flag); }
+		free_all(tokens, path, line, full_path, flag); }
 	return (0); }
 
 

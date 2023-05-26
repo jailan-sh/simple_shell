@@ -1,12 +1,12 @@
 #include "main.h"
 
 /**
- * child - function for child process
- * @fullpath: full path of executable
+ * child - function in child process
+ * @full_path: path of executable command
  * @tokens: tokenized user input
- * Return: 0 on success
+ * Return: 0 (success)
  */
-int child(char *fullpath, char **tokens)
+int child(char *full_path, char **tokens)
 {
 	pid_t child_pid;
 	int status;
@@ -21,7 +21,7 @@ int child(char *fullpath, char **tokens)
 	}
 	if (child_pid == 0)
 	{
-		execve_status = execve(fullpath, tokens, envp);
+		execve_status = execve(full_path, tokens, envp);
 		if (execve_status == -1)
 			return (-1);
 	}
