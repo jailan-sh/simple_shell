@@ -11,7 +11,8 @@ char *which_like(char *command)
 	char *path = NULL;
 	char *path_cp = NULL;
 	char *path_token, *file_path;
-	int command_len, directory_len;
+	int command_len = 0;
+        int directory_len = 0;
 	struct stat buff;
 
 	path = _getenv("PATH");
@@ -41,12 +42,18 @@ char *which_like(char *command)
 			return (file_path);
 		}
 		else
-			free(file_path), path_token = _strtok(NULL, ":");
+		free(file_path),path_token = _strtok(NULL, ":");
 	} free(path_cp);
 	if (stat(command, &buff) == 0 && (buff.st_mode & S_IXUSR))
+	{
 		return (command);
+	}
 	else
+	{
+		free(file_path);
 		return (NULL);
+	}
+	free(path_cp);
 }
 
 /**

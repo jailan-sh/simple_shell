@@ -10,34 +10,38 @@
 
 void start_shell(char **av, char **env)
 {
-	char *lineptr = NULL, *delim = " \t\n\r";
+	char *lineptr = NULL, *delim = " \t\n\r", *lineptr_cp
 	int i = 0;
 	char *argument[MAX_ARGU];
+	char *command_path;
+	char *path;
+	ssize_t num_char;
+	size_t n;
 
 	signal(SIGINT, handler);
 
 	while (1)
 	{
 		write(1, "shell$ ", 7);
-		lineptr  = _getline();
-		if (lineptr == NULL)
+		lineptr  = getline(&lineptr, &n, stdin);
+		if (num_char == -1)
 		{
-			free(lineptr), exit(EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
 		if (*lineptr != '\n')
 		{
-			i = 0;
-			argument[i] = _strtok(lineptr, delim);
-			while (argument[i])
-			{
-				if (i > 0 && argument[i] != NULL && _strcmp(argument[i], "#") == 0)
-				{
-					argument[i] = '\0';
-				}
-				argument[++i] = _strtok(NULL, delim);
+			lineptr_cp = malloc(sizeof(char) * num_char)
+			if
 			}
-			execute_builtin_command(argument, env, av);
+			path = _getenv("PATH");
+			if (path)
+			{
+			command_path = which_like(argument[0]);
+			if (command_path != NULL)
+			execute_external_command(argument, env, av);
+			}
 		}
 	}
+	free(command_path);
 	free(lineptr);
 }

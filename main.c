@@ -12,14 +12,13 @@
 int main(int ac, char **av, char **env)
 {
 	(void)ac;
-
 	if (isatty(STDIN_FILENO) != 0 && ac > 1)
 	{
 		non_interactive(av, env);
 	}
-	else
+	else if (isatty(STDIN_FILENO))
 	{
 		start_shell(av, env);
 	}
-	return (0);
+    return (0);
 }
