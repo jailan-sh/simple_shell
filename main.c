@@ -1,9 +1,11 @@
 #include "main.h"
 
 /**
- * main - main loop of shell
- * Return: 0 on success
+ * main - the main function of the shell
+ *
+ * Return: 0 always success
  */
+
 int main(void)
 {
 	char *line, *path, *fullpath;
@@ -15,7 +17,8 @@ int main(void)
 	signal(SIGINT, handler);
 	while (1)
 	{
-		prompt(STDIN_FILENO, buf);
+		if (isatty(STDIN_FILENO))
+		shell(STDIN_FILENO, buf);
 		line = _getline(stdin);
 		if (_strcmp(line, "\n", 1) == 0)
 		{
@@ -44,17 +47,16 @@ int main(void)
 		child_status = child(fullpath, tokens);
 		if (child_status == -1)
 			errors(2);
-		free_all(tokens, path, line, fullpath, flag);
-	}
+		free_all(tokens, path, line, fullpath, flag); }
 	return (0); }
 
 
 /**
- * prompt - checks mode and prints prompt if interactive
+ * shell - checks mode and prints prompt if interactive
  * @fd: file stream
  * @buf: buffer
 **/
-void prompt(int fd, struct stat buf)
+void shell(int fd, struct stat buf)
 {
 	fstat(fd, &buf);
 
