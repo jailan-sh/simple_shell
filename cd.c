@@ -16,7 +16,7 @@ int my_cd(char **argument)
 	{
 		return (-1);
 	}
-	if (argument[1] == NULL || strcmp(argument[1], "~") == 0)
+	if (argument[1] == NULL)
 	{
 		chdir(getenv("HOME"));
 	}
@@ -44,7 +44,6 @@ int my_cd(char **argument)
 	{
 		return (-1);
 	}
-	printf("%s\n", cwd);
 	setenv("OLDPWD", getenv("PWD"), 1);
 	setenv("PWD", cwd, 1);
 	return (0);
