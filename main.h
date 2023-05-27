@@ -51,6 +51,8 @@ typedef struct built_s
 
 /**shell functions*/
 
+void noninteractive(void);
+void interactive(void);
 void shell(int fd, struct stat buf);
 char *_getline(FILE *fp);
 char **tokenizer(char *str);
