@@ -1,15 +1,14 @@
 #include "main.h"
 
 /**
- * _getenv - gets an environment variable
- * @name : environment variable
- *
- * Return: pointer to environment variable or NULL if there is no match
+ * _getenv - gets the environment variable
+ * @name : name of environment variable
+ * Return: pointer to environment variable or NULL if fail
  */
 
 char *_getenv(const char *name)
 {
-	char **environ_copy;
+	char **environ_cp;
 	char *variable, *value, *path;
 	int compare;
 	unsigned int path_length, environ_length, length, i;
@@ -17,14 +16,14 @@ char *_getenv(const char *name)
 	environ_length = 0;
 	while (environ[environ_length] != NULL)
 		environ_length++;
-	environ_copy = NULL;
-	environ_copy = copy_env(environ_copy, environ_length);
+	environ_cp = NULL;
+	environ_cp = copy_env(environ_cp, environ_length);
 
 	length = _strlen((char *)name);
 	i = 0;
-	while (environ_copy[i] != NULL)
+	while (environ_cp[i] != NULL)
 	{
-		variable = environ_copy[i];
+		variable = environ_cp[i];
 		compare = _strncmp((char *)name, variable, length);
 		if (compare == 1)
 		{
@@ -43,7 +42,7 @@ char *_getenv(const char *name)
 				return (NULL);
 			}
 			path = _strcpy(path, value);
-			free_array(environ_copy, environ_length);
+			free_array(environ_cp, environ_length);
 			return (path);
 		}
 		i++;
@@ -52,19 +51,19 @@ char *_getenv(const char *name)
 }
 
 /**
- * copy_env - copies environment variable
- * @environ_copy: pointer to copy of environment variable
- * @environ_length: length of environment variable
- * Return: the copy of environment variables
+ * copy_env - copies the environment variable
+ * @environ_cp: pointer to environment variable copy
+ * @environ_length: of environment variable lenghth
+ * Return: environ copy
  */
-char **copy_env(char **environ_copy, unsigned int environ_length)
+char **copy_env(char **environ_cp, unsigned int environ_length)
 {
 	char *variable;
 	unsigned int variable_length;
 	unsigned int i;
 
-	environ_copy = malloc(sizeof(char **) * (environ_length));
-	if (environ_copy == NULL)
+	environ_cp = malloc(sizeof(char **) * (environ_length));
+	if (environ_cp == NULL)
 	{
 		errors(3);
 		return (NULL);
@@ -76,17 +75,17 @@ char **copy_env(char **environ_copy, unsigned int environ_length)
 		variable = environ[i];
 		variable_length = _strlen(variable);
 
-		environ_copy[i] = malloc(sizeof(char) * variable_length + 1);
-		if (environ_copy[i] == NULL)
+		environ_cp[i] = malloc(sizeof(char) * variable_length + 1);
+		if (environ_cp[i] == NULL)
 		{
 			errors(3);
 			return (NULL);
 		}
-		_strcpy(environ_copy[i], environ[i]);
+		_strcpy(environ_cp[i], environ[i]);
 		i++;
 	}
 
-	return (environ_copy);
+	return (environ_cp);
 }
 
 /**
