@@ -28,7 +28,6 @@ int my_cd(char **argument)
 		}
 		else
 		{
-			/**write(2, "./hsh: cd: OLDPWD not set\n", 27);*/
 			fprintf(stderr, "./hsh: cd: OLDPWD not set\n");
 			return (-1);
 		}
@@ -45,6 +44,7 @@ int my_cd(char **argument)
 	{
 		return (-1);
 	}
+	printf("%s\n", cwd);
 	setenv("OLDPWD", getenv("PWD"), 1);
 	setenv("PWD", cwd, 1);
 	return (0);
