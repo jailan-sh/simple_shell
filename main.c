@@ -9,7 +9,7 @@ int main(void)
 {
 	char *line, *path, *full_path;
 	char **tokens;
-	int flag, builtin_status, child_status;
+	int flag, buil_run, execute;
 	struct stat buf;
 
 	full_path = NULL;
@@ -26,14 +26,14 @@ int main(void)
 		tokens = tokenizer(line);
 		if (tokens[0] == NULL)
 			continue;
-		builtin_status = execute_builtin_command(tokens);
-		if (builtin_status == 0 || builtin_status == -1)
+		buil_run = execute_builtin_command(tokens);
+		if (buil_run == 0 || buil_run == -1)
 		{
 			free(tokens), free(line);
 		}
-		if (builtin_status == 0)
+		if (buil_run == 0)
 			continue;
-		if (builtin_status == -1)
+		if (buil_run == -1)
 			_exit(EXIT_SUCCESS);
 		flag = 0;
 		path = _getenv("PATH");
@@ -42,8 +42,8 @@ int main(void)
 			full_path = tokens[0];
 		else
 			flag = 1;
-		child_status = child(full_path, tokens);
-		if (child_status == -1)
+		execute = child(full_path, tokens);
+		if (execute == -1)
 			errors(2);
 		free_all(tokens, path, line, full_path, flag); }
 	return (0); }
@@ -53,7 +53,9 @@ int main(void)
  * shell - checks mode and prints prompt if interactive
  * @fd: file stream
  * @buf: buffer
+ *
 **/
+
 void shell(int fd, struct stat buf)
 {
 	fstat(fd, &buf);
